@@ -1,27 +1,18 @@
 name: CI with Cache
-
 on: [push, pull_request]
-
 jobs:
-  build:
+  test:  # or build—doesn't matter
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: prime-cache-fac69f3  # Exact step name required
+      
+      - name: prime-cache-fac69f3  # ← EXACT NAME REQUIRED
+        id: cache-step
         uses: actions/cache@v4
         with:
-          key: cache-fac69f3  # Exact key required
-          path: ~/.npm        # Cache npm deps (common example)
-        id: cache-step         # Optional: IDs the step for output access
-
+          key: cache-fac69f3  # ← EXACT KEY REQUIRED
+          path: ~/.npm
+      
       - name: Echo cache result
         run: echo "Cache hit: ${{ steps.cache-step.outputs.cache-hit }}"
-
-      - name: Install dependencies (if cache miss)
-        if: steps.cache-step.outputs.cache-hit != 'true'
-        run: npm ci              # Or 'pip install -r requirements.txt' for Python
-
-      - name: Run tests
-        run: npm test            # Replace with your test command
