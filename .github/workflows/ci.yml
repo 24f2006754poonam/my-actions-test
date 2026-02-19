@@ -1,18 +1,16 @@
 name: CI with Cache
-on: [push, pull_request]
+
+on: [push]
+
 jobs:
-  test:  # or build—doesn't matter
+  test:
     runs-on: ubuntu-latest
+    
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      
-      - name: prime-cache-fac69f3  # ← EXACT NAME REQUIRED
-        id: cache-step
-        uses: actions/cache@v4
-        with:
-          key: cache-fac69f3  # ← EXACT KEY REQUIRED
-          path: ~/.npm
-      
-      - name: Echo cache result
-        run: echo "Cache hit: ${{ steps.cache-step.outputs.cache-hit }}"
+    - uses: actions/checkout@v4
+    
+    - name: prime-cache-fac69f3
+      uses: actions/cache@v4
+      with:
+        key: cache-fac69f3
+        path: ~/.cache  # Cache pip/node etc.; adjust if needed
