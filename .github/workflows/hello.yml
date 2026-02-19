@@ -9,5 +9,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       
-      - name: 24f2006754@ds.study.iitm.ac.in - Hello World!
+      - name: 24f2006754@ds.study.iitm.ac.in 
         run: echo "Hello from GitHub Actions! Your email step worked."
+        
